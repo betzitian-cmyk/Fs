@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { useRef } from 'react';
 import { ArrowRight, Zap, Target, Shield } from 'lucide-react';
 
+import GenAIImage from './GenAIImage';
+
 const Hero = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -30,11 +32,12 @@ const Hero = () => {
         className="absolute inset-0 z-0"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-        <img 
-          src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop" 
-          alt="Football Action"
-          className="w-full h-full object-cover"
-          referrerPolicy="no-referrer"
+        <GenAIImage 
+          prompt="Cinematic wide shot of a professional NFL stadium at night with bright stadium lights, intense atmosphere, high quality, 8k"
+          alt="NFL Stadium Action"
+          aspectRatio="16:9"
+          className="w-full h-full"
+          fallback="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop"
         />
       </motion.div>
 

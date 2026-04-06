@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Calendar, MapPin, Clock, Ticket, Zap } from 'lucide-react';
 
+import GenAIImage from '../components/GenAIImage';
+
 const events = [
   {
     title: "Elite Skills Showcase",
@@ -10,7 +12,8 @@ const events = [
     location: "Flight School Stadium",
     category: "Showcase",
     description: "The premier event for high school recruits to showcase their skills in front of collegiate scouts and coaches.",
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800&auto=format&fit=crop",
+    prompt: "Wide shot of a professional NFL stadium during a skills showcase, players in jerseys on the field, scouts with clipboards, cinematic lighting"
   },
   {
     title: "Spring Youth Combine",
@@ -19,7 +22,8 @@ const events = [
     location: "Training Grounds A",
     category: "Combine",
     description: "A comprehensive athletic testing event for youth players ages 8-14. Get your official stats and measurements.",
-    image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=800&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=800&auto=format&fit=crop",
+    prompt: "Youth football players participating in a combine, running drills, timing gates, professional sports setting, high detail"
   },
   {
     title: "Quarterback Masterclass",
@@ -28,7 +32,8 @@ const events = [
     location: "Indoor Facility",
     category: "Clinic",
     description: "Intensive position-specific training focusing on footwork, mechanics, and defensive recognition.",
-    image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop",
+    prompt: "Close up of a quarterback's hands on a football, ready to throw, indoor training facility, focused lighting, NFL style"
   },
   {
     title: "7v7 Regional Tournament",
@@ -37,7 +42,8 @@ const events = [
     location: "City Sports Complex",
     category: "Tournament",
     description: "The biggest 7v7 tournament in the region. Compete against the best teams for the championship title.",
-    image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=800&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=800&auto=format&fit=crop",
+    prompt: "Action shot of a 7v7 football game, player jumping for a catch, vibrant colors, stadium background, sports photography"
   }
 ];
 
@@ -51,11 +57,11 @@ const EventCard = ({ event, index }: any) => {
       className="flex flex-col md:flex-row bg-zinc-900 border border-zinc-800 rounded-[2rem] overflow-hidden group hover:border-blue-500/50 transition-colors"
     >
       <div className="md:w-1/3 relative h-64 md:h-auto overflow-hidden">
-        <img 
-          src={event.image} 
+        <GenAIImage 
+          prompt={event.prompt}
           alt={event.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          referrerPolicy="no-referrer"
+          fallback={event.image}
         />
         <div className="absolute top-4 left-4">
           <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 rounded-full">
@@ -126,11 +132,12 @@ const Events = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-          <img 
-            src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1920&auto=format&fit=crop" 
+          <GenAIImage 
+            prompt="Cinematic shot of an empty professional NFL stadium tunnel, bright light at the end, high quality, 8k"
             alt="Events Header"
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            aspectRatio="16:9"
+            className="w-full h-full"
+            fallback="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1920&auto=format&fit=crop"
           />
         </motion.div>
         
@@ -179,11 +186,12 @@ const Events = () => {
         {/* Newsletter CTA */}
         <section className="mt-32 relative rounded-[3rem] overflow-hidden py-20 px-12 text-center">
           <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop" 
+            <GenAIImage 
+              prompt="Professional NFL football stadium at night, stadium lights, cinematic atmosphere, high quality, 8k"
               alt="Stadium"
-              className="w-full h-full object-cover opacity-20"
-              referrerPolicy="no-referrer"
+              aspectRatio="16:9"
+              className="w-full h-full opacity-20"
+              fallback="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-transparent to-zinc-950" />
           </div>

@@ -4,14 +4,17 @@ import { ChevronRight } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
 
+import GenAIImage from './GenAIImage';
+
 interface ProgramCardProps {
   title: string;
   description: string;
   image: string;
+  prompt: string;
   delay: number;
 }
 
-const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, delay }) => {
+const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, prompt, delay }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -21,11 +24,11 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, de
       className="group relative overflow-hidden rounded-3xl bg-zinc-900 border border-zinc-800 aspect-[4/5]"
     >
       <div className="absolute inset-0 z-0">
-        <img 
-          src={image} 
-          alt={title} 
+        <GenAIImage 
+          prompt={prompt}
+          alt={title}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-          referrerPolicy="no-referrer"
+          fallback={image}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
       </div>
@@ -52,16 +55,19 @@ const Programs = () => {
       title: "Elite Academy",
       description: "Advanced skill development for competitive athletes looking to reach the next level of performance.",
       image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=800&auto=format&fit=crop",
+      prompt: "Professional NFL training camp, high school athletes, intense atmosphere, elite coaching, 8k"
     },
     {
       title: "Youth League",
       description: "Our premier spring league for ages 7-14. Focus on teamwork, fundamentals, and high-energy competition.",
       image: "https://images.unsplash.com/photo-1526232759583-26f173565b4c?q=80&w=800&auto=format&fit=crop",
+      prompt: "Youth football players in NFL-style uniforms, high energy, teamwork, sunny day on a professional field"
     },
     {
       title: "Skills Clinic",
       description: "Position-specific training sessions led by former pro and collegiate coaches. Master your craft.",
       image: "https://images.unsplash.com/photo-1552667466-07770ae110d0?q=80&w=800&auto=format&fit=crop",
+      prompt: "NFL quarterback mechanics training, close up, professional coach, high detail, sports photography"
     }
   ];
 
@@ -104,6 +110,7 @@ const Programs = () => {
               title={p.title}
               description={p.description}
               image={p.image}
+              prompt={p.prompt}
               delay={i * 0.2} 
             />
           ))}

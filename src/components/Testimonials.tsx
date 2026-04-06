@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { cn } from '../lib/utils';
 
+import GenAIImage from './GenAIImage';
+
 const testimonials = [
   {
     id: 1,
@@ -10,6 +12,7 @@ const testimonials = [
     role: "Head Coach, Elite Academy",
     content: "Flight School isn't just about football; it's about building character and discipline. I've seen athletes transform from raw talent into collegiate-ready leaders in just one season.",
     image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=400&auto=format&fit=crop",
+    prompt: "Professional NFL head coach portrait, middle aged, serious expression, wearing team gear, stadium background, high detail",
     type: "coach"
   },
   {
@@ -18,6 +21,7 @@ const testimonials = [
     role: "D1 Commit / Alumni",
     content: "The technical training I received here put me miles ahead of the competition. The coaches truly care about your success and push you to your absolute limits every single day.",
     image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=400&auto=format&fit=crop",
+    prompt: "Young NFL player portrait, athletic build, wearing jersey, confident smile, professional lighting, sports photography",
     type: "player"
   },
   {
@@ -26,6 +30,7 @@ const testimonials = [
     role: "Parent of Youth Athlete",
     content: "My son has gained so much confidence since joining the Youth League. The environment is supportive yet challenging, perfect for young athletes to grow their love for the game.",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop",
+    prompt: "Proud mother at a football game, smiling, wearing team colors, soft background, high quality portrait",
     type: "parent"
   },
   {
@@ -34,6 +39,7 @@ const testimonials = [
     role: "Skills Specialist",
     content: "We focus on the micro-details that make a macro-difference. Our goal is to ensure every player leaves the field better than they stepped on it.",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop",
+    prompt: "NFL skills specialist coach, focused expression, holding a football, training field background, high detail",
     type: "coach"
   }
 ];
@@ -116,11 +122,11 @@ const Testimonials = () => {
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-zinc-900/50 border border-zinc-800 p-8 md:p-16 rounded-[3rem] backdrop-blur-sm">
                 <div className="relative aspect-square rounded-[2rem] overflow-hidden group">
-                  <img 
-                    src={testimonials[activeIndex].image} 
+                  <GenAIImage 
+                    prompt={testimonials[activeIndex].prompt}
                     alt={testimonials[activeIndex].name}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    referrerPolicy="no-referrer"
+                    fallback={testimonials[activeIndex].image}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6">

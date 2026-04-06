@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { Target, Zap, Shield, Activity, ChevronRight, Star, Clock, MapPin, Users } from 'lucide-react';
 import { cn } from '../lib/utils';
 
+import GenAIImage from '../components/GenAIImage';
+
 const programs = [
   {
     id: 'elite-academy',
@@ -11,6 +13,7 @@ const programs = [
     description: "Our flagship program designed for serious athletes aiming for collegiate recruitment. Includes advanced tactical training, strength & conditioning, and film study.",
     features: ["Collegiate-level coaching", "Recruitment guidance", "Position-specific mastery", "Performance tracking"],
     image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=800&auto=format&fit=crop",
+    prompt: "High school football players in an elite training camp, NFL style jerseys, professional coaching, stadium background, high detail",
     icon: <Zap className="w-6 h-6" />,
     color: "blue"
   },
@@ -21,6 +24,7 @@ const programs = [
     description: "A high-energy developmental league focusing on fundamentals, teamwork, and building a strong athletic foundation in a competitive environment.",
     features: ["Fundamental skills", "Team strategy", "Weekly games", "Certified coaching"],
     image: "https://images.unsplash.com/photo-1526232759583-26f173565b4c?q=80&w=800&auto=format&fit=crop",
+    prompt: "Youth football league game, kids in colorful jerseys, action shot, green grass field, professional sports photography",
     icon: <Target className="w-6 h-6" />,
     color: "emerald"
   },
@@ -31,6 +35,7 @@ const programs = [
     description: "Position-specific masterclasses led by former NFL and NCAA specialists. Perfect for refining technique and mastering the nuances of your position.",
     features: ["QB mechanics", "WR route running", "Lineman technique", "DB coverage"],
     image: "https://images.unsplash.com/photo-1552667466-07770ae110d0?q=80&w=800&auto=format&fit=crop",
+    prompt: "NFL specialist coach demonstrating technique to players, focused expression, training equipment, high detail, cinematic",
     icon: <Shield className="w-6 h-6" />,
     color: "amber"
   },
@@ -41,6 +46,7 @@ const programs = [
     description: "Explosive movement training focused on linear speed, lateral quickness, and change of direction. Essential for every position on the field.",
     features: ["Sprint mechanics", "Plyometrics", "Reaction drills", "Core stability"],
     image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800&auto=format&fit=crop",
+    prompt: "Athlete performing speed and agility drills, ladder drills, cones, explosive movement, NFL training camp style",
     icon: <Activity className="w-6 h-6" />,
     color: "rose"
   }
@@ -56,11 +62,11 @@ const ProgramCard = ({ program, index }: any) => {
       className="group relative bg-zinc-900 border border-zinc-800 rounded-[3rem] overflow-hidden hover:border-blue-500/50 transition-all duration-500"
     >
       <div className="h-64 relative overflow-hidden">
-        <img 
-          src={program.image} 
+        <GenAIImage 
+          prompt={program.prompt}
           alt={program.title}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-          referrerPolicy="no-referrer"
+          fallback={program.image}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
         <div className="absolute top-6 left-6">
@@ -131,11 +137,12 @@ const ProgramsPage = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-          <img 
-            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop" 
+          <GenAIImage 
+            prompt="Cinematic shot of an empty professional NFL stadium tunnel, bright light at the end, high quality, 8k"
             alt="Programs Header"
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            aspectRatio="16:9"
+            className="w-full h-full"
+            fallback="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop"
           />
         </motion.div>
         
@@ -224,11 +231,12 @@ const ProgramsPage = () => {
               </div>
             </div>
             <div className="aspect-video rounded-[2rem] overflow-hidden border border-zinc-800">
-              <img 
-                src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop" 
+              <GenAIImage 
+                prompt="Professional NFL training facility, weight room, turf field, high quality, 8k"
                 alt="Facility"
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
+                aspectRatio="16:9"
+                className="w-full h-full"
+                fallback="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop"
               />
             </div>
           </div>

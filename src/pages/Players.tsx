@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { Trophy, Star, TrendingUp, User, Zap, X, ChevronRight, Target, Activity, Shield } from 'lucide-react';
 
+import GenAIImage from '../components/GenAIImage';
+
 const players = [
   {
     name: "Marcus Johnson",
@@ -15,6 +17,7 @@ const players = [
       { label: "Football IQ", value: 95 }
     ],
     image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop",
+    prompt: "Elite high school quarterback portrait, NFL style, wearing jersey, holding football, stadium background, cinematic lighting",
     shortBio: "Elite arm talent with exceptional pocket presence.",
     fullBio: "Marcus is a generational talent at the quarterback position. Standing at 6'3\" and weighing 210 lbs, he possesses the ideal frame for a pro-style QB. His ability to read defenses pre-snap and make off-platform throws has caught the attention of every major D1 program. Beyond his physical tools, Marcus is a natural leader who spends hours in the film room, often being the first one in and last one out of the facility."
   },
@@ -30,6 +33,7 @@ const players = [
       { label: "Vertical", value: 89 }
     ],
     image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop",
+    prompt: "Athletic wide receiver portrait, NFL style, wearing gloves and jersey, focused expression, sports photography",
     shortBio: "Blazing speed and precise route running.",
     fullBio: "Darius is a nightmare for defensive coordinators. With a clocked 4.38 forty-yard dash, he can take the top off any defense. His catch radius is exceptional, making him a reliable target in red-zone situations. Darius has refined his route running over the last two years at Flight School, transforming from a pure speedster into a complete wide receiver who can win at every level of the field."
   },
@@ -45,6 +49,7 @@ const players = [
       { label: "Tackling", value: 82 }
     ],
     image: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=800&auto=format&fit=crop",
+    prompt: "Elite defensive back portrait, NFL style, wearing jersey, intense gaze, professional lighting, high detail",
     shortBio: "Lockdown defender with elite ball skills.",
     fullBio: "Jalen defines the term 'Island Corner'. He thrives in one-on-one situations, using his 6'1\" frame and long arms to disrupt passing lanes. His transition from backpedal to sprint is fluid, allowing him to mirror the most agile receivers. Jalen's competitive fire is infectious; he welcomes the challenge of shadowing the opponent's #1 receiver for all four quarters."
   },
@@ -60,6 +65,7 @@ const players = [
       { label: "Blocking", value: 85 }
     ],
     image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800&auto=format&fit=crop",
+    prompt: "Powerful running back portrait, NFL style, wearing jersey, athletic stance, stadium background, cinematic",
     shortBio: "Powerful runner with breakaway speed.",
     fullBio: "Tyler is a rare combination of power and finesse. He has the strength to run through arm tackles in the trenches and the speed to outrun secondaries in the open field. His vision allows him to anticipate holes before they fully develop, making him a constant threat for explosive plays. Tyler is also an asset in the passing game, showing soft hands and reliable pass protection skills."
   }
@@ -105,11 +111,11 @@ const PlayerBioModal = ({ player, onClose }: any) => {
 
         {/* Left: Image */}
         <div className="md:w-2/5 relative h-64 md:h-auto">
-          <img 
-            src={player.image} 
+          <GenAIImage 
+            prompt={player.prompt}
             alt={player.name}
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            fallback={player.image}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent md:bg-gradient-to-r" />
         </div>
@@ -173,11 +179,11 @@ const PlayerCard = ({ player, index, onOpen }: any) => {
       onClick={onOpen}
     >
       <div className="relative h-72 overflow-hidden">
-        <img 
-          src={player.image} 
+        <GenAIImage 
+          prompt={player.prompt}
           alt={player.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0"
-          referrerPolicy="no-referrer"
+          fallback={player.image}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
         <div className="absolute bottom-4 left-6">
@@ -244,11 +250,12 @@ const Players = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-          <img 
-            src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop" 
+          <GenAIImage 
+            prompt="Cinematic shot of an empty professional NFL stadium tunnel, bright light at the end, high quality, 8k"
             alt="Players Header"
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            aspectRatio="16:9"
+            className="w-full h-full"
+            fallback="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop"
           />
         </motion.div>
         
