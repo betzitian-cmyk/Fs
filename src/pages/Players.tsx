@@ -2,22 +2,22 @@ import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { Trophy, Star, TrendingUp, User, Zap, X, ChevronRight, Target, Activity, Shield } from 'lucide-react';
 
-import GenAIImage from '../components/GenAIImage';
-
 const players = [
   {
     name: "Marcus Johnson",
     position: "Quarterback",
     class: "2027",
-    stats: { td: 34, yards: 2850, rating: 118.5 },
+    height: "6'3\"",
+    weight: "210 lbs",
+    stats: { td: 34, yards: 2850, rating: 118.5, completion: "68.5%" },
     performance: [
       { label: "Arm Strength", value: 92 },
       { label: "Accuracy", value: 88 },
       { label: "Mobility", value: 75 },
-      { label: "Football IQ", value: 95 }
+      { label: "Football IQ", value: 95 },
+      { label: "Pocket Presence", value: 90 }
     ],
     image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop",
-    prompt: "Elite high school quarterback portrait, NFL style, wearing jersey, holding football, stadium background, cinematic lighting",
     shortBio: "Elite arm talent with exceptional pocket presence.",
     fullBio: "Marcus is a generational talent at the quarterback position. Standing at 6'3\" and weighing 210 lbs, he possesses the ideal frame for a pro-style QB. His ability to read defenses pre-snap and make off-platform throws has caught the attention of every major D1 program. Beyond his physical tools, Marcus is a natural leader who spends hours in the film room, often being the first one in and last one out of the facility."
   },
@@ -25,15 +25,17 @@ const players = [
     name: "Darius Smith",
     position: "Wide Receiver",
     class: "2026",
-    stats: { td: 18, yards: 1240, catches: 72 },
+    height: "6'1\"",
+    weight: "185 lbs",
+    stats: { td: 18, yards: 1240, catches: 72, avg: 17.2 },
     performance: [
       { label: "Speed", value: 98 },
       { label: "Hands", value: 94 },
       { label: "Route Running", value: 91 },
-      { label: "Vertical", value: 89 }
+      { label: "Vertical", value: 89 },
+      { label: "Release", value: 93 }
     ],
     image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop",
-    prompt: "Athletic wide receiver portrait, NFL style, wearing gloves and jersey, focused expression, sports photography",
     shortBio: "Blazing speed and precise route running.",
     fullBio: "Darius is a nightmare for defensive coordinators. With a clocked 4.38 forty-yard dash, he can take the top off any defense. His catch radius is exceptional, making him a reliable target in red-zone situations. Darius has refined his route running over the last two years at Flight School, transforming from a pure speedster into a complete wide receiver who can win at every level of the field."
   },
@@ -41,15 +43,17 @@ const players = [
     name: "Jalen Williams",
     position: "Cornerback",
     class: "2027",
-    stats: { int: 6, tackles: 45, pbu: 12 },
+    height: "6'1\"",
+    weight: "190 lbs",
+    stats: { int: 6, tackles: 45, pbu: 12, forced_fumbles: 2 },
     performance: [
       { label: "Man Coverage", value: 96 },
       { label: "Zone IQ", value: 90 },
       { label: "Ball Skills", value: 93 },
-      { label: "Tackling", value: 82 }
+      { label: "Tackling", value: 82 },
+      { label: "Press Technique", value: 94 }
     ],
     image: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=800&auto=format&fit=crop",
-    prompt: "Elite defensive back portrait, NFL style, wearing jersey, intense gaze, professional lighting, high detail",
     shortBio: "Lockdown defender with elite ball skills.",
     fullBio: "Jalen defines the term 'Island Corner'. He thrives in one-on-one situations, using his 6'1\" frame and long arms to disrupt passing lanes. His transition from backpedal to sprint is fluid, allowing him to mirror the most agile receivers. Jalen's competitive fire is infectious; he welcomes the challenge of shadowing the opponent's #1 receiver for all four quarters."
   },
@@ -57,15 +61,17 @@ const players = [
     name: "Tyler Brown",
     position: "Running Back",
     class: "2028",
-    stats: { td: 22, yards: 1580, avg: 7.2 },
+    height: "5'11\"",
+    weight: "205 lbs",
+    stats: { td: 22, yards: 1580, avg: 7.2, broken_tackles: 85 },
     performance: [
       { label: "Power", value: 95 },
       { label: "Vision", value: 92 },
       { label: "Acceleration", value: 94 },
-      { label: "Blocking", value: 85 }
+      { label: "Blocking", value: 85 },
+      { label: "Balance", value: 91 }
     ],
     image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800&auto=format&fit=crop",
-    prompt: "Powerful running back portrait, NFL style, wearing jersey, athletic stance, stadium background, cinematic",
     shortBio: "Powerful runner with breakaway speed.",
     fullBio: "Tyler is a rare combination of power and finesse. He has the strength to run through arm tackles in the trenches and the speed to outrun secondaries in the open field. His vision allows him to anticipate holes before they fully develop, making him a constant threat for explosive plays. Tyler is also an asset in the passing game, showing soft hands and reliable pass protection skills."
   }
@@ -111,25 +117,37 @@ const PlayerBioModal = ({ player, onClose }: any) => {
 
         {/* Left: Image */}
         <div className="md:w-2/5 relative h-64 md:h-auto">
-          <GenAIImage 
-            prompt={player.prompt}
+          <img 
+            src={player.image} 
             alt={player.name}
             className="w-full h-full object-cover"
-            fallback={player.image}
+            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent md:bg-gradient-to-r" />
         </div>
 
         {/* Right: Content */}
         <div className="md:w-3/5 p-8 md:p-16 overflow-y-auto max-h-[70vh] md:max-h-none">
-          <div className="mb-10">
-            <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 rounded-full mb-4 inline-block">
-              Class of {player.class}
-            </span>
-            <h2 className="text-4xl md:text-6xl font-display font-black uppercase italic text-white mb-2">
-              {player.name}
-            </h2>
-            <p className="text-blue-500 font-bold uppercase tracking-[0.2em] text-sm">{player.position}</p>
+          <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 rounded-full mb-4 inline-block">
+                Class of {player.class}
+              </span>
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase italic text-white mb-2">
+                {player.name}
+              </h2>
+              <p className="text-blue-500 font-bold uppercase tracking-[0.2em] text-sm">{player.position}</p>
+            </div>
+            <div className="flex gap-6 border-l border-zinc-800 pl-6">
+              <div>
+                <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Height</p>
+                <p className="text-white font-black text-xl italic">{player.height}</p>
+              </div>
+              <div>
+                <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Weight</p>
+                <p className="text-white font-black text-xl italic">{player.weight}</p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -154,10 +172,10 @@ const PlayerBioModal = ({ player, onClose }: any) => {
             </div>
           </div>
 
-          <div className="mt-12 pt-12 border-t border-zinc-800 grid grid-cols-3 gap-8">
+          <div className="mt-12 pt-12 border-t border-zinc-800 grid grid-cols-2 md:grid-cols-4 gap-8">
             {Object.entries(player.stats).map(([key, val]: [string, any]) => (
               <div key={key}>
-                <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">{key}</p>
+                <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">{key.replace('_', ' ')}</p>
                 <p className="text-white font-black text-3xl uppercase italic">{val}</p>
               </div>
             ))}
@@ -171,44 +189,65 @@ const PlayerBioModal = ({ player, onClose }: any) => {
 const PlayerCard = ({ player, index, onOpen }: any) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group cursor-pointer"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.215, 0.61, 0.355, 1] }}
+      className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl hover:shadow-blue-900/20 transition-all duration-500"
       onClick={onOpen}
     >
-      <div className="relative h-72 overflow-hidden">
-        <GenAIImage 
-          prompt={player.prompt}
+      <div className="relative h-80 overflow-hidden">
+        <img 
+          src={player.image} 
           alt={player.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0"
-          fallback={player.image}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0"
+          referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        
+        <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <div className="bg-zinc-950/80 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 text-right">
+            <p className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">Height</p>
+            <p className="text-xs font-black text-white italic">{player.height}</p>
+          </div>
+          <div className="bg-zinc-950/80 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 text-right">
+            <p className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">Weight</p>
+            <p className="text-xs font-black text-white italic">{player.weight}</p>
+          </div>
+        </div>
+
         <div className="absolute bottom-4 left-6">
-          <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 rounded-full">
+          <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 rounded-full shadow-lg">
             Class of {player.class}
           </span>
         </div>
       </div>
       
       <div className="p-8">
-        <div className="mb-4">
-          <h3 className="text-2xl font-display font-black uppercase italic text-white mb-1 group-hover:text-blue-500 transition-colors">
+        <div className="mb-6">
+          <h3 className="text-3xl font-display font-black uppercase italic text-white mb-1 group-hover:text-blue-500 transition-colors">
             {player.name}
           </h3>
           <p className="text-blue-500 font-bold uppercase tracking-widest text-xs">{player.position}</p>
         </div>
         
+        <div className="grid grid-cols-3 gap-4 mb-8 py-4 border-y border-zinc-800/50">
+          {Object.entries(player.stats).slice(0, 3).map(([key, val]: [string, any]) => (
+            <div key={key}>
+              <p className="text-zinc-500 text-[8px] font-bold uppercase tracking-widest mb-1">{key.replace('_', ' ')}</p>
+              <p className="text-white font-black text-lg uppercase italic">{val}</p>
+            </div>
+          ))}
+        </div>
+
         <p className="text-zinc-400 text-sm leading-relaxed mb-8 line-clamp-2">
           {player.shortBio}
         </p>
         
         <div className="flex items-center justify-between group/btn">
-          <span className="text-white text-[10px] font-black uppercase tracking-widest group-hover/btn:text-blue-500 transition-colors">View Full Bio</span>
-          <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center group-hover/btn:bg-blue-600 transition-colors">
-            <ChevronRight size={16} className="text-white" />
+          <span className="text-white text-[10px] font-black uppercase tracking-widest group-hover/btn:text-blue-500 transition-colors">View Scouting Report</span>
+          <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center group-hover/btn:bg-blue-600 transition-colors shadow-lg">
+            <ChevronRight size={20} className="text-white" />
           </div>
         </div>
       </div>
@@ -250,12 +289,11 @@ const Players = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-          <GenAIImage 
-            prompt="Cinematic shot of an empty professional NFL stadium tunnel, bright light at the end, high quality, 8k"
+          <img 
+            src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop" 
             alt="Players Header"
-            aspectRatio="16:9"
-            className="w-full h-full"
-            fallback="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
           />
         </motion.div>
         

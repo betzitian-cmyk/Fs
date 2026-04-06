@@ -2,8 +2,6 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Calendar, MapPin, Clock, Ticket, Zap } from 'lucide-react';
 
-import GenAIImage from '../components/GenAIImage';
-
 const events = [
   {
     title: "Elite Skills Showcase",
@@ -57,11 +55,11 @@ const EventCard = ({ event, index }: any) => {
       className="flex flex-col md:flex-row bg-zinc-900 border border-zinc-800 rounded-[2rem] overflow-hidden group hover:border-blue-500/50 transition-colors"
     >
       <div className="md:w-1/3 relative h-64 md:h-auto overflow-hidden">
-        <GenAIImage 
-          prompt={event.prompt}
+        <img 
+          src={event.image} 
           alt={event.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          fallback={event.image}
+          referrerPolicy="no-referrer"
         />
         <div className="absolute top-4 left-4">
           <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 rounded-full">
@@ -132,12 +130,11 @@ const Events = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-          <GenAIImage 
-            prompt="Cinematic shot of an empty professional NFL stadium tunnel, bright light at the end, high quality, 8k"
+          <img 
+            src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1920&auto=format&fit=crop" 
             alt="Events Header"
-            aspectRatio="16:9"
-            className="w-full h-full"
-            fallback="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1920&auto=format&fit=crop"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
           />
         </motion.div>
         
@@ -186,12 +183,11 @@ const Events = () => {
         {/* Newsletter CTA */}
         <section className="mt-32 relative rounded-[3rem] overflow-hidden py-20 px-12 text-center">
           <div className="absolute inset-0 z-0">
-            <GenAIImage 
-              prompt="Professional NFL football stadium at night, stadium lights, cinematic atmosphere, high quality, 8k"
+            <img 
+              src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop" 
               alt="Stadium"
-              aspectRatio="16:9"
-              className="w-full h-full opacity-20"
-              fallback="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop"
+              className="w-full h-full object-cover opacity-20"
+              referrerPolicy="no-referrer"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-transparent to-zinc-950" />
           </div>

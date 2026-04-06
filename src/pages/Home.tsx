@@ -30,8 +30,6 @@ const Counter = ({ value, suffix = "" }: { value: number, suffix?: string }) => 
   );
 };
 
-import GenAIImage from '../components/GenAIImage';
-
 const Home = () => {
   const parallaxRef = useRef(null);
   const { scrollYProgress: parallaxScroll } = useScroll({
@@ -86,12 +84,11 @@ const Home = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-zinc-950/70 z-10" />
-          <GenAIImage 
-            prompt="Close up of a professional NFL football on a grass field, stadium lights in the background, high detail, 8k"
+          <img 
+            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop" 
             alt="Football Action"
-            aspectRatio="16:9"
-            className="w-full h-full"
-            fallback="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2070&auto=format&fit=crop"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
           />
         </motion.div>
         <div className="relative z-20 max-w-4xl mx-auto px-6 text-center">

@@ -3,8 +3,6 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { Target, Zap, Shield, Activity, ChevronRight, Star, Clock, MapPin, Users } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-import GenAIImage from '../components/GenAIImage';
-
 const programs = [
   {
     id: 'elite-academy',
@@ -62,11 +60,11 @@ const ProgramCard = ({ program, index }: any) => {
       className="group relative bg-zinc-900 border border-zinc-800 rounded-[3rem] overflow-hidden hover:border-blue-500/50 transition-all duration-500"
     >
       <div className="h-64 relative overflow-hidden">
-        <GenAIImage 
-          prompt={program.prompt}
+        <img 
+          src={program.image} 
           alt={program.title}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-          fallback={program.image}
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
         <div className="absolute top-6 left-6">
@@ -137,12 +135,11 @@ const ProgramsPage = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
-          <GenAIImage 
-            prompt="Cinematic shot of an empty professional NFL stadium tunnel, bright light at the end, high quality, 8k"
+          <img 
+            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop" 
             alt="Programs Header"
-            aspectRatio="16:9"
-            className="w-full h-full"
-            fallback="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
           />
         </motion.div>
         
@@ -231,12 +228,11 @@ const ProgramsPage = () => {
               </div>
             </div>
             <div className="aspect-video rounded-[2rem] overflow-hidden border border-zinc-800">
-              <GenAIImage 
-                prompt="Professional NFL training facility, weight room, turf field, high quality, 8k"
+              <img 
+                src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop" 
                 alt="Facility"
-                aspectRatio="16:9"
-                className="w-full h-full"
-                fallback="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
               />
             </div>
           </div>

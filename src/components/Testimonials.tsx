@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-import GenAIImage from './GenAIImage';
-
 const testimonials = [
   {
     id: 1,
@@ -122,11 +120,11 @@ const Testimonials = () => {
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-zinc-900/50 border border-zinc-800 p-8 md:p-16 rounded-[3rem] backdrop-blur-sm">
                 <div className="relative aspect-square rounded-[2rem] overflow-hidden group">
-                  <GenAIImage 
-                    prompt={testimonials[activeIndex].prompt}
+                  <img 
+                    src={testimonials[activeIndex].image} 
                     alt={testimonials[activeIndex].name}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    fallback={testimonials[activeIndex].image}
+                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6">

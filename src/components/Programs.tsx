@@ -4,8 +4,6 @@ import { ChevronRight } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
 
-import GenAIImage from './GenAIImage';
-
 interface ProgramCardProps {
   title: string;
   description: string;
@@ -24,11 +22,11 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, pr
       className="group relative overflow-hidden rounded-3xl bg-zinc-900 border border-zinc-800 aspect-[4/5]"
     >
       <div className="absolute inset-0 z-0">
-        <GenAIImage 
-          prompt={prompt}
+        <img 
+          src={image} 
           alt={title}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-          fallback={image}
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
       </div>
