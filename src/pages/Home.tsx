@@ -5,6 +5,7 @@ import Programs from '../components/Programs';
 import Testimonials from '../components/Testimonials';
 import Schedule from '../components/Schedule';
 import Contact from '../components/Contact';
+import RegistrationModal from '../components/RegistrationModal';
 
 const Counter = ({ value, suffix = "" }: { value: number, suffix?: string }) => {
   const count = useMotionValue(0);
@@ -31,6 +32,7 @@ const Counter = ({ value, suffix = "" }: { value: number, suffix?: string }) => 
 };
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const parallaxRef = useRef(null);
   const { scrollYProgress: parallaxScroll } = useScroll({
     target: parallaxRef,
@@ -85,7 +87,7 @@ const Home = () => {
         >
           <div className="absolute inset-0 bg-zinc-950/70 z-10" />
           <img 
-            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2070&auto=format&fit=crop" 
             alt="Football Action"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -102,6 +104,7 @@ const Home = () => {
             <span className="text-blue-500">Take Flight</span>
           </motion.h2>
           <motion.button
+            onClick={() => setIsModalOpen(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-white text-zinc-950 px-12 py-5 rounded-full font-black text-xl transition-all shadow-2xl hover:bg-blue-50"
@@ -115,6 +118,12 @@ const Home = () => {
 
       <Schedule />
       <Contact />
+
+      <RegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        programName="Elite Academy"
+      />
     </motion.div>
   );
 };

@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Target, Zap, Shield, Activity, ChevronRight, Star, Clock, MapPin, Users } from 'lucide-react';
 import { cn } from '../lib/utils';
+import RegistrationModal from '../components/RegistrationModal';
 
 const programs = [
   {
@@ -50,7 +51,7 @@ const programs = [
   }
 ];
 
-const ProgramCard = ({ program, index }: any) => {
+const ProgramCard = ({ program, index, onRegister }: any) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -103,7 +104,10 @@ const ProgramCard = ({ program, index }: any) => {
           ))}
         </div>
 
-        <button className="w-full bg-zinc-800 hover:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 group/btn">
+        <button 
+          onClick={() => onRegister(program.title)}
+          className="w-full bg-zinc-800 hover:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 group/btn"
+        >
           Register Now <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
         </button>
       </div>
@@ -112,7 +116,14 @@ const ProgramCard = ({ program, index }: any) => {
 };
 
 const ProgramsPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState("Elite Academy");
   const headerRef = useRef(null);
+
+  const handleRegister = (programName: string) => {
+    setSelectedProgram(programName);
+    setIsModalOpen(true);
+  };
   const { scrollYProgress } = useScroll({
     target: headerRef,
     offset: ["start start", "end start"]
@@ -136,7 +147,7 @@ const ProgramsPage = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
           <img 
-            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1920&auto=format&fit=crop" 
             alt="Programs Header"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -194,9 +205,20 @@ const ProgramsPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {programs.map((program, i) => (
-            <ProgramCard key={program.id} program={program} index={i} />
+            <ProgramCard 
+              key={program.id} 
+              program={program} 
+              index={i} 
+              onRegister={handleRegister}
+            />
           ))}
         </div>
+
+        <RegistrationModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          programName={selectedProgram}
+        />
 
         {/* Location Info */}
         <section className="mt-32 bg-zinc-900/50 border border-zinc-800 rounded-[3rem] p-12 md:p-20 overflow-hidden relative">

@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Zap, ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
+import RegistrationModal from './RegistrationModal';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
   
@@ -22,6 +24,8 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Partners', href: '/partners' },
     { name: 'Players', href: '/players' },
     { name: 'Events', href: '/events' },
     { name: 'Programs', href: '/programs' },
@@ -49,9 +53,9 @@ const Navbar = () => {
             className="relative h-12 flex items-center"
           >
             <img 
-              src="/input_file_0.png" 
+              src="https://jypxqrtqzktjkxkqveqw.supabase.co/storage/v1/object/public/uploads/1757693556862-i4tnulb3bj.png" 
               alt="Flight School Logo"
-              className="h-full w-auto object-contain brightness-110"
+              className="h-full w-auto object-contain brightness-110 rounded-lg"
               referrerPolicy="no-referrer"
             />
           </motion.div>
@@ -82,6 +86,7 @@ const Navbar = () => {
           <div className="w-px h-6 bg-zinc-800 mx-4" />
           
           <motion.button
+            onClick={() => setIsModalOpen(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="group relative bg-blue-600 hover:bg-blue-500 text-white px-8 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all overflow-hidden shadow-lg shadow-blue-600/20"
@@ -135,13 +140,25 @@ const Navbar = () => {
                 </motion.div>
               ))}
               <div className="h-px bg-zinc-800 my-2" />
-              <button className="bg-blue-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-lg shadow-xl shadow-blue-600/20">
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsModalOpen(true);
+                }}
+                className="bg-blue-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-lg shadow-xl shadow-blue-600/20"
+              >
                 Register Now
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <RegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        programName="Elite Academy"
+      />
     </header>
   );
 };

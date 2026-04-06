@@ -10,9 +10,9 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <div className="h-12 flex items-center">
               <img 
-                src="/input_file_0.png" 
+                src="https://jypxqrtqzktjkxkqveqw.supabase.co/storage/v1/object/public/uploads/1757693556862-i4tnulb3bj.png" 
                 alt="Flight School Logo"
-                className="h-full w-auto object-contain brightness-110"
+                className="h-full w-auto object-contain brightness-110 rounded-lg"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -30,6 +30,8 @@ const Footer = () => {
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-6">Quick Links</h4>
             <ul className="space-y-4 text-zinc-500 text-sm">
               <li><Link to="/" className="hover:text-blue-500 transition-colors">Home</Link></li>
+              <li><Link to="/about" className="hover:text-blue-500 transition-colors">About Us</Link></li>
+              <li><Link to="/partners" className="hover:text-blue-500 transition-colors">Our Partners</Link></li>
               <li><Link to="/players" className="hover:text-blue-500 transition-colors">Players</Link></li>
               <li><Link to="/events" className="hover:text-blue-500 transition-colors">Events</Link></li>
               <li><a href="#contact" className="hover:text-blue-500 transition-colors">Contact</a></li>

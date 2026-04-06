@@ -1,8 +1,10 @@
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowRight, Zap, Target, Shield } from 'lucide-react';
+import RegistrationModal from './RegistrationModal';
 
 const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -31,7 +33,7 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop" 
+          src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1920&auto=format&fit=crop" 
           alt="NFL Stadium Action"
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
@@ -131,6 +133,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <motion.button 
+              onClick={() => setIsModalOpen(true)}
               whileHover={{ scale: 1.05, x: 5 }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group shadow-xl shadow-blue-600/20"
@@ -148,6 +151,12 @@ const Hero = () => {
           </motion.div>
         </motion.div>
       </motion.div>
+
+      <RegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        programName="Elite Academy"
+      />
 
       {/* Animated Scan Line */}
       <motion.div 

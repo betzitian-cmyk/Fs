@@ -131,7 +131,7 @@ const Events = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
           <img 
-            src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1920&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1920&auto=format&fit=crop" 
             alt="Events Header"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -195,9 +195,9 @@ const Events = () => {
           <div className="relative z-10 max-w-2xl mx-auto">
             <div className="h-20 flex items-center justify-center mb-8">
               <img 
-                src="/input_file_0.png" 
+                src="https://jypxqrtqzktjkxkqveqw.supabase.co/storage/v1/object/public/uploads/1757693556862-i4tnulb3bj.png" 
                 alt="Flight School Logo"
-                className="h-full w-auto object-contain brightness-110"
+                className="h-full w-auto object-contain brightness-110 rounded-lg"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -207,8 +207,15 @@ const Events = () => {
             <p className="text-zinc-400 text-lg mb-10">
               Subscribe to our newsletter to get early access to event registration and exclusive training tips.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Subscribed successfully!");
+              }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <input 
+                required
                 type="email" 
                 placeholder="Enter your email" 
                 className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl px-6 py-4 text-white outline-none focus:border-blue-500 transition-colors"
@@ -216,7 +223,7 @@ const Events = () => {
               <button className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-500 transition-colors">
                 Subscribe
               </button>
-            </div>
+            </form>
           </div>
         </section>
       </div>

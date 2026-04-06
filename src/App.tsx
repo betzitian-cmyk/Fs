@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Players from './pages/Players';
 import Events from './pages/Events';
 import ProgramsPage from './pages/Programs';
+import About from './pages/About';
+import Partners from './pages/Partners';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -25,6 +27,8 @@ const AnimatedRoutes = () => {
           <Route path="/players" element={<Players />} />
           <Route path="/events" element={<Events />} />
           <Route path="/programs" element={<ProgramsPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/partners" element={<Partners />} />
         </Routes>
       </motion.div>
     </AnimatePresence>

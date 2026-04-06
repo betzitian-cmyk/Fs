@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
-
 import { Link } from 'react-router-dom';
+import RegistrationModal from './RegistrationModal';
 
 interface ProgramCardProps {
   title: string;
@@ -10,9 +10,10 @@ interface ProgramCardProps {
   image: string;
   prompt: string;
   delay: number;
+  onRegister: (title: string) => void;
 }
 
-const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, prompt, delay }) => {
+const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, prompt, delay, onRegister }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -38,16 +39,31 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ title, description, image, pr
         <p className="text-zinc-400 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
           {description}
         </p>
-        <Link to="/programs" className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-xs group/btn">
-          Learn More 
-          <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link to="/programs" className="flex items-center gap-2 text-white/60 hover:text-white font-bold uppercase tracking-widest text-[10px] transition-colors">
+            Learn More
+          </Link>
+          <button 
+            onClick={() => onRegister(title)}
+            className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-xs group/btn"
+          >
+            Register Now 
+            <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+          </button>
+        </div>
       </div>
     </motion.div>
   );
 };
 
 const Programs = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState("Elite Academy");
+
+  const handleRegister = (title: string) => {
+    setSelectedProgram(title);
+    setIsModalOpen(true);
+  };
   const programs = [
     {
       title: "Elite Academy",
@@ -110,9 +126,16 @@ const Programs = () => {
               image={p.image}
               prompt={p.prompt}
               delay={i * 0.2} 
+              onRegister={handleRegister}
             />
           ))}
         </div>
+
+        <RegistrationModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          programName={selectedProgram}
+        />
       </div>
     </section>
   );
