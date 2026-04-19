@@ -19,9 +19,9 @@ const Footer = () => {
           </div>
           
           <div className="flex items-center gap-8">
-            <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Instagram /></a>
-            <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Facebook /></a>
-            <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Twitter /></a>
+            <a href="https://instagram.com/flightschoolfootball" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Instagram /></a>
+            <a href="https://facebook.com/flightschoolfootball" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Facebook /></a>
+            <a href="https://twitter.com/flightschoolfb" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Twitter /></a>
           </div>
         </div>
         
@@ -50,7 +50,7 @@ const Footer = () => {
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-6">Support</h4>
             <ul className="space-y-4 text-zinc-500 text-sm">
               <li><a href="#" className="hover:text-blue-500 transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">FAQs</a></li>
+              <li><Link to="/faq" className="hover:text-blue-500 transition-colors">FAQs</Link></li>
               <li><a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a></li>
             </ul>

@@ -180,32 +180,38 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {coaches.map((coach, i) => (
               <motion.div
                 key={coach.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group"
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="text-center group"
               >
-                <div className="relative aspect-[3/4] rounded-[2.5rem] overflow-hidden mb-6 border border-zinc-800">
-                  <img 
-                    src={coach.image} 
-                    alt={coach.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60" />
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <p className="text-blue-500 font-bold uppercase tracking-widest text-[10px] mb-1">{coach.role}</p>
-                    <h3 className="text-2xl font-display font-black uppercase italic text-white">{coach.name}</h3>
+                <div className="relative w-48 h-48 mx-auto mb-8">
+                  <div className="absolute inset-0 bg-blue-600 rounded-full scale-105 opacity-0 group-hover:opacity-20 transition-opacity blur-xl" />
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-zinc-800 group-hover:border-blue-600 transition-all duration-500">
+                    <img 
+                      src={coach.image} 
+                      alt={coach.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
                 </div>
-                <p className="text-zinc-500 text-sm leading-relaxed px-2">
-                  {coach.bio}
-                </p>
+                
+                <div className="space-y-3">
+                  <p className="text-blue-500 font-bold uppercase tracking-widest text-[10px]">{coach.role}</p>
+                  <h3 className="text-2xl font-display font-black uppercase italic text-white flex items-center justify-center gap-2">
+                    {coach.name}
+                  </h3>
+                  <div className="h-0.5 w-10 bg-blue-600 mx-auto transition-all group-hover:w-20" />
+                  <p className="text-zinc-500 text-sm leading-relaxed max-w-[280px] mx-auto italic">
+                    "{coach.bio}"
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>

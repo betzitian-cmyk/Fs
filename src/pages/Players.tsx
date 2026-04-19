@@ -1,6 +1,21 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
-import { Trophy, Star, TrendingUp, User, Zap, X, ChevronRight, Target, Activity, Shield } from 'lucide-react';
+import { Trophy, Star, TrendingUp, User, Zap, X, ChevronRight, Target, Activity, Shield, Award, Medal, Play, Film } from 'lucide-react';
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer, 
+  Cell,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis
+} from 'recharts';
 
 const players = [
   {
@@ -17,6 +32,12 @@ const players = [
       { label: "Football IQ", value: 95 },
       { label: "Pocket Presence", value: 90 }
     ],
+    achievements: [
+      { title: "Player of the Week", icon: Award, date: "Oct 2025" },
+      { title: "All-State Honors", icon: Trophy, date: "2024" },
+      { title: "Elite 11 Finalist", icon: Star, date: "2025" }
+    ],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
     image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop",
     shortBio: "Elite arm talent with exceptional pocket presence.",
     fullBio: "Marcus is a generational talent at the quarterback position. Standing at 6'3\" and weighing 210 lbs, he possesses the ideal frame for a pro-style QB. His ability to read defenses pre-snap and make off-platform throws has caught the attention of every major D1 program. Beyond his physical tools, Marcus is a natural leader who spends hours in the film room, often being the first one in and last one out of the facility."
@@ -35,6 +56,12 @@ const players = [
       { label: "Vertical", value: 89 },
       { label: "Release", value: 93 }
     ],
+    achievements: [
+      { title: "Conference MVP", icon: Trophy, date: "2024" },
+      { title: "Offensive POY", icon: Zap, date: "2025" },
+      { title: "Track All-American", icon: Medal, date: "2024" }
+    ],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
     image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop",
     shortBio: "Blazing speed and precise route running.",
     fullBio: "Darius is a nightmare for defensive coordinators. With a clocked 4.38 forty-yard dash, he can take the top off any defense. His catch radius is exceptional, making him a reliable target in red-zone situations. Darius has refined his route running over the last two years at Flight School, transforming from a pure speedster into a complete wide receiver who can win at every level of the field."
@@ -53,6 +80,12 @@ const players = [
       { label: "Tackling", value: 82 },
       { label: "Press Technique", value: 94 }
     ],
+    achievements: [
+      { title: "Defensive Master", icon: Shield, date: "2025" },
+      { title: "All-League Honors", icon: Award, date: "2024" },
+      { title: "Interception King", icon: Target, date: "2025" }
+    ],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
     image: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=800&auto=format&fit=crop",
     shortBio: "Lockdown defender with elite ball skills.",
     fullBio: "Jalen defines the term 'Island Corner'. He thrives in one-on-one situations, using his 6'1\" frame and long arms to disrupt passing lanes. His transition from backpedal to sprint is fluid, allowing him to mirror the most agile receivers. Jalen's competitive fire is infectious; he welcomes the challenge of shadowing the opponent's #1 receiver for all four quarters."
@@ -71,6 +104,12 @@ const players = [
       { label: "Blocking", value: 85 },
       { label: "Balance", value: 91 }
     ],
+    achievements: [
+      { title: "Freshman of Year", icon: Star, date: "2024" },
+      { title: "Rushing Leader", icon: TrendingUp, date: "2025" },
+      { title: "All-State RB", icon: Trophy, date: "2024" }
+    ],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
     image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800&auto=format&fit=crop",
     shortBio: "Powerful runner with breakaway speed.",
     fullBio: "Tyler is a rare combination of power and finesse. He has the strength to run through arm tackles in the trenches and the speed to outrun secondaries in the open field. His vision allows him to anticipate holes before they fully develop, making him a constant threat for explosive plays. Tyler is also an asset in the passing game, showing soft hands and reliable pass protection skills."
@@ -93,6 +132,75 @@ const StatBar = ({ label, value, delay }: any) => (
     </div>
   </div>
 );
+
+const PerformanceChart = ({ data }: { data: any[] }) => {
+  return (
+    <div className="h-[250px] w-full mt-4">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          layout="vertical"
+          data={data}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#27272a" />
+          <XAxis type="number" hide domain={[0, 100]} />
+          <YAxis 
+            dataKey="label" 
+            type="category" 
+            width={120} 
+            axisLine={false} 
+            tickLine={false}
+            tick={{ fill: '#71717a', fontSize: 10, fontWeight: 700, textAnchor: 'start', dx: -110 }}
+          />
+          <Tooltip 
+            cursor={{ fill: 'transparent' }}
+            contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a', borderRadius: '12px' }}
+            itemStyle={{ color: '#3b82f6', fontWeight: 900 }}
+          />
+          <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.value >= 90 ? '#2563eb' : '#3b82f6'} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+const PerformanceRadarChart = ({ data }: { data: any[] }) => {
+  return (
+    <div className="h-[300px] w-full mt-4 flex items-center justify-center">
+      <ResponsiveContainer width="100%" height="100%">
+        <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
+          <PolarGrid stroke="#27272a" strokeWidth={1} />
+          <PolarAngleAxis 
+            dataKey="label" 
+            tick={{ fill: '#71717a', fontSize: 10, fontWeight: 700 }}
+          />
+          <PolarRadiusAxis 
+            angle={90} 
+            domain={[0, 100]} 
+            tick={false} 
+            axisLine={false} 
+          />
+          <Radar
+            name="Skills"
+            dataKey="value"
+            stroke="#2563eb"
+            fill="#3b82f6"
+            fillOpacity={0.4}
+            strokeWidth={3}
+          />
+          <Tooltip 
+            contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a', borderRadius: '12px' }}
+            itemStyle={{ color: '#3b82f6', fontWeight: 900 }}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 const PlayerBioModal = ({ player, onClose }: any) => {
   return (
@@ -162,12 +270,73 @@ const PlayerBioModal = ({ player, onClose }: any) => {
 
             <div>
               <h3 className="text-white font-black uppercase italic text-xl mb-6 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-blue-500" /> Performance Stats
+                <Activity className="w-5 h-5 text-blue-500" /> Scouting Profile
               </h3>
-              <div className="space-y-2">
-                {player.performance.map((perf: any, i: number) => (
-                  <StatBar key={perf.label} label={perf.label} value={perf.value} delay={0.2 + (i * 0.1)} />
-                ))}
+              
+              <div className="bg-zinc-950/30 border border-zinc-800 rounded-3xl p-6 mb-8">
+                <PerformanceRadarChart data={player.performance} />
+              </div>
+
+              <div className="space-y-8">
+                <div>
+                  <h4 className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Attribute Distribution</h4>
+                  <PerformanceChart data={player.performance} />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {player.performance.map((perf: any, i: number) => (
+                    <div key={perf.label} className="p-3 bg-zinc-950/50 border border-zinc-800 rounded-xl group hover:border-blue-500/30 transition-colors">
+                      <p className="text-zinc-500 text-[8px] font-bold uppercase tracking-widest mb-1">{perf.label}</p>
+                      <p className="text-blue-500 font-black text-lg italic tracking-tight">{perf.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-12 border-t border-zinc-800">
+            <h3 className="text-white font-black uppercase italic text-xl mb-8 flex items-center gap-2">
+              <Trophy className="w-5 h-5 text-blue-500" /> Recent Achievements
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {player.achievements.map((achievement: any, i: number) => (
+                <motion.div 
+                  key={achievement.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 + (i * 0.1) }}
+                  className="bg-zinc-950/50 border border-zinc-800 p-4 rounded-2xl flex items-center gap-4 group hover:border-blue-500/50 transition-colors"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-600/20 transition-colors">
+                    <achievement.icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-white font-bold text-sm uppercase tracking-tight">{achievement.title}</p>
+                    <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">{achievement.date}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-12 pt-12 border-t border-zinc-800">
+            <h3 className="text-white font-black uppercase italic text-xl mb-8 flex items-center gap-2">
+              <Film className="w-5 h-5 text-blue-500" /> Scouting Tape
+            </h3>
+            <div className="relative aspect-video rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-950">
+              <iframe 
+                src={player.videoUrl}
+                title={`${player.name} Highlights`}
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              <div className="absolute top-4 right-4 z-10">
+                <div className="bg-blue-600/90 backdrop-blur-md px-4 py-1.5 rounded-full flex items-center gap-2 border border-white/10 shadow-lg">
+                  <Play size={12} className="fill-white" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white">Full Highlights</span>
+                </div>
               </div>
             </div>
           </div>

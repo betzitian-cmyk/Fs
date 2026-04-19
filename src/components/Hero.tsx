@@ -14,21 +14,23 @@ const Hero = () => {
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
   const smoothProgress = useSpring(scrollYProgress, springConfig);
 
-  const y = useTransform(smoothProgress, [0, 1], ["0%", "40%"]);
+  const y = useTransform(smoothProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(smoothProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(smoothProgress, [0, 1], [1, 1.15]);
-  const textY = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+  const scale = useTransform(smoothProgress, [0, 1], [1, 1.3]);
+  const blur = useTransform(smoothProgress, [0, 0.8], ["blur(0px)", "blur(12px)"]);
+  const textY = useTransform(smoothProgress, [0, 1], ["0%", "150%"]);
   
-  // Decorative elements parallax
-  const decorY1 = useTransform(smoothProgress, [0, 1], ["0%", "-150%"]);
-  const decorY2 = useTransform(smoothProgress, [0, 1], ["0%", "-100%"]);
-  const decorRotate = useTransform(smoothProgress, [0, 1], [0, 45]);
+  // Decorative elements parallax - more extreme for depth
+  const decorY1 = useTransform(smoothProgress, [0, 1], ["0%", "-300%"]);
+  const decorY2 = useTransform(smoothProgress, [0, 1], ["0%", "-200%"]);
+  const decorRotate = useTransform(smoothProgress, [0, 1], [0, 90]);
+  const decorOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
 
   return (
     <section id="home" ref={ref} className="relative h-screen overflow-hidden flex items-center justify-center bg-zinc-950">
       {/* Background Layer */}
       <motion.div 
-        style={{ y, scale }}
+        style={{ y, scale, filter: blur }}
         className="absolute inset-0 z-0"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950 z-10" />
@@ -45,31 +47,33 @@ const Hero = () => {
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            style={{ y: useTransform(smoothProgress, [0, 1], [0, (i + 1) * -100]) }}
-            className="absolute left-0 right-0 h-px bg-white"
+            style={{ 
+              y: useTransform(smoothProgress, [0, 1], [0, (i + 1) * -150]),
+              top: `${i * 10}%`
+            }}
+            className="absolute left-0 right-0 h-px bg-white/20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: i * 0.1 }}
-            css={{ top: `${i * 10}%` }}
           />
         ))}
       </div>
 
       {/* Floating Decorative Elements */}
       <motion.div 
-        style={{ y: decorY1, rotate: decorRotate }}
+        style={{ y: decorY1, rotate: decorRotate, opacity: decorOpacity }}
         className="absolute top-1/4 left-10 md:left-20 z-10 text-blue-500/20 hidden md:block"
       >
         <Zap size={120} strokeWidth={1} />
       </motion.div>
       <motion.div 
-        style={{ y: decorY2, rotate: -decorRotate }}
+        style={{ y: decorY2, rotate: -decorRotate, opacity: decorOpacity }}
         className="absolute bottom-1/4 right-10 md:right-20 z-10 text-blue-600/20 hidden md:block"
       >
         <Target size={160} strokeWidth={1} />
       </motion.div>
       <motion.div 
-        style={{ y: decorY1, x: 50 }}
+        style={{ y: decorY1, x: 50, opacity: decorOpacity }}
         className="absolute top-1/3 right-1/4 z-10 text-white/5 hidden lg:block"
       >
         <Shield size={200} strokeWidth={0.5} />
